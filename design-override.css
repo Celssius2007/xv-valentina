@@ -1,15 +1,18 @@
-/* Diseño aprobado: utiliza la imagen original subida, sin reinterpretar flores/colores/tipografías. */
+/* Diseño aprobado: la imagen original se muestra limpia, sin duplicar textos ni elementos. */
 :root{--approved-design:url('./diseno-valentina.png')}
 .cover:before,.cover:after,.floral:before,.floral:after,footer:before,footer:after{display:none!important;background-image:none!important}
-.cover{background:#070508 var(--approved-design) center top/100% auto no-repeat!important;min-height:100svh}
+.cover{background:#070508!important;min-height:100svh!important;padding:0!important;display:flex!important;align-items:stretch!important}
 .cover .sparkles{display:none!important}
-/* En la portada el arte original funciona como fondo; contenido funcional permanece accesible. */
-.coverbox{background:linear-gradient(180deg,rgba(7,5,8,.08),rgba(7,5,8,.22));border-radius:24px}
-/* Segunda pantalla mantiene la misma identidad mediante recortes del arte aprobado. */
-.main{background:#070508;position:relative}
-.main:before{content:'';position:absolute;inset:0;pointer-events:none;background-image:var(--approved-design);background-size:100% auto;background-position:center top;opacity:.12;filter:saturate(.9);z-index:0}
+.cover .box,.cover .coverbox{width:100%!important;min-height:100svh!important;margin:0!important;padding:0!important;border-radius:0!important;background:var(--approved-design) center top/contain no-repeat!important;position:relative!important}
+/* Oculta el texto HTML que ya viene impreso dentro de la imagen aprobada. */
+.cover .box>*:not(#open),.cover .coverbox>*:not(#open){visibility:hidden!important}
+.cover #open{visibility:visible!important;position:absolute!important;left:50%!important;transform:translateX(-50%)!important;top:64%!important;z-index:5!important;white-space:nowrap!important}
+/* Evita que el arte completo se repita detrás de la segunda pantalla. */
+.main{background:#070508!important;position:relative}
+.main:before{display:none!important;content:none!important}
+.main>.heroimg{display:none!important}
 .main>*{position:relative;z-index:1}
-.dark,footer{background:linear-gradient(145deg,rgba(7,5,8,.96),rgba(20,10,16,.96))!important}
-.wine{background:linear-gradient(145deg,rgba(69,19,34,.96),rgba(106,35,60,.96))!important}
-.light{background:linear-gradient(145deg,rgba(245,232,224,.98),rgba(234,214,204,.98))!important}
-@media(max-width:680px){.cover{background-size:auto 100%;background-position:center top}.coverbox{background:rgba(7,5,8,.14)}}
+.dark,footer{background:linear-gradient(145deg,#0b080c,#171017)!important}
+.wine{background:linear-gradient(145deg,#451322,#6a233c)!important}
+.light{background:linear-gradient(145deg,#f5e8e0,#ead6cc)!important}
+@media(max-width:680px){.cover .box,.cover .coverbox{background-size:cover!important;background-position:center top!important}.cover #open{top:67%!important}}
