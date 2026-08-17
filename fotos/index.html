@@ -3,88 +3,350 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sube tus fotos | XV Valentina</title>
+  <title>Comparte tus fotos | XV Valentina</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,.75), transparent 35%),
+        linear-gradient(160deg, #f8e7ee, #ead5df, #d9bac8);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: #5b3142;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255,255,255,.88);
+      border-radius: 28px;
+      padding: 34px 24px;
+      box-shadow: 0 20px 60px rgba(90,50,70,.20);
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .small {
+      letter-spacing: 4px;
+      font-size: 13px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: #9b667a;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      margin: 8px 0 12px;
+      color: #7a4058;
+    }
+
+    .date {
+      font-size: 15px;
+      margin-bottom: 25px;
+      color: #9a6a7d;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    .upload-box {
+      margin-top: 24px;
+      border: 2px dashed #c894a8;
+      border-radius: 20px;
+      padding: 26px 18px;
+      background: #fff8fb;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      margin-bottom: 18px;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 50px;
+      padding: 16px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: .2s ease;
+    }
+
+    .primary {
+      background: #7b4058;
+      color: white;
+      box-shadow: 0 8px 20px rgba(123,64,88,.25);
+    }
+
+    .primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .secondary {
+      background: #f2dce5;
+      color: #6e354d;
+    }
+
+    #estado {
+      margin-top: 18px;
+      font-weight: bold;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      height: 12px;
+      background: #efdce4;
+      border-radius: 50px;
+      overflow: hidden;
+      margin-top: 18px;
+      display: none;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: #7b4058;
+      transition: width .25s ease;
+    }
+
+    .count {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #87576a;
+    }
+
+    .success {
+      display: none;
+    }
+
+    .success h2 {
+      font-family: Georgia, serif;
+      font-size: 30px;
+      color: #7b4058;
+    }
+
+    .heart {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #9d7b89;
+    }
+  </style>
 </head>
 
-<body style="font-family: Arial, sans-serif; text-align:center; padding:40px;">
+<body>
 
-  <h1>📸 Comparte tus fotos</h1>
+  <div class="card">
 
-  <p>
-    Selecciona una fotografía para comprobar que se guarda correctamente.
-  </p>
+    <div id="uploadSection">
 
-  <input
-    type="file"
-    id="foto"
-    accept="image/*"
-  >
+      <div class="small">Mis XV</div>
 
-  <br><br>
+      <h1>Valentina</h1>
 
-  <button onclick="subirFoto()">
-    Subir fotografía
-  </button>
+      <div class="date">19 · 12 · 2026</div>
 
-  <p id="estado"></p>
+      <p>
+        Ayúdame a guardar cada momento de esta noche.
+        Comparte aquí las fotografías que tomes durante la celebración.
+      </p>
+
+      <div class="upload-box">
+
+        <p><strong>📸 Selecciona tus fotografías</strong></p>
+
+        <input
+          type="file"
+          id="fotos"
+          accept="image/*"
+          multiple
+        >
+
+        <button class="primary" onclick="subirFotos()">
+          Subir fotografías
+        </button>
+
+        <div id="contador" class="count"></div>
+
+        <div class="progress-wrap" id="progressWrap">
+          <div class="progress" id="progress"></div>
+        </div>
+
+        <div id="estado"></div>
+
+      </div>
+
+      <div class="footer">
+        Puedes seleccionar varias fotografías al mismo tiempo.
+      </div>
+
+    </div>
+
+
+    <div id="successSection" class="success">
+
+      <div class="heart">💗</div>
+
+      <h2>¡Gracias!</h2>
+
+      <p>
+        Tus fotografías se guardaron correctamente.
+      </p>
+
+      <p>
+        Gracias por ayudarme a conservar los recuerdos
+        de este día tan especial.
+      </p>
+
+      <button class="secondary" onclick="subirMas()">
+        📷 Subir más fotografías
+      </button>
+
+    </div>
+
+  </div>
+
 
   <script>
-    async function subirFoto() {
 
-      const input = document.getElementById("foto");
-      const estado = document.getElementById("estado");
+    const CLOUD_NAME = "wbidq4yy";
+    const UPLOAD_PRESET = "fotos_valentina_15";
 
-      if (!input.files.length) {
-        estado.textContent = "Selecciona una fotografía primero.";
+    const input = document.getElementById("fotos");
+    const contador = document.getElementById("contador");
+    const estado = document.getElementById("estado");
+    const progressWrap = document.getElementById("progressWrap");
+    const progress = document.getElementById("progress");
+
+    input.addEventListener("change", () => {
+
+      const cantidad = input.files.length;
+
+      if (cantidad === 0) {
+        contador.textContent = "";
         return;
       }
 
-      const archivo = input.files[0];
+      contador.textContent =
+        cantidad === 1
+          ? "1 fotografía seleccionada"
+          : cantidad + " fotografías seleccionadas";
 
-      const formData = new FormData();
+    });
 
-      formData.append("file", archivo);
-      formData.append("upload_preset", "fotos_valentina_15");
 
-      estado.textContent = "Subiendo fotografía...";
+    async function subirFotos() {
 
-      try {
+      const archivos = [...input.files];
 
-        const respuesta = await fetch(
-          "https://api.cloudinary.com/v1_1/wbidq4yy/image/upload",
-          {
-            method: "POST",
-            body: formData
+      if (!archivos.length) {
+        estado.textContent = "Selecciona al menos una fotografía.";
+        return;
+      }
+
+      estado.textContent = "";
+
+      progressWrap.style.display = "block";
+      progress.style.width = "0%";
+
+      let exitosas = 0;
+      let fallidas = 0;
+
+      for (let i = 0; i < archivos.length; i++) {
+
+        const archivo = archivos[i];
+
+        estado.textContent =
+          "Subiendo " + (i + 1) + " de " + archivos.length + "...";
+
+        try {
+
+          const formData = new FormData();
+
+          formData.append("file", archivo);
+          formData.append("upload_preset", UPLOAD_PRESET);
+
+          const respuesta = await fetch(
+            `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+            {
+              method: "POST",
+              body: formData
+            }
+          );
+
+          if (respuesta.ok) {
+            exitosas++;
+          } else {
+            fallidas++;
           }
-        );
 
-        const resultado = await respuesta.json();
+        } catch (error) {
 
-        if (respuesta.ok) {
+          fallidas++;
 
-          estado.innerHTML =
-            "✅ Fotografía subida correctamente.<br><br>" +
-            "Ya puedes revisar Cloudinary.";
-
-          console.log(resultado);
-
-        } else {
-
-          estado.textContent =
-            "❌ Error al subir la fotografía: " +
-            (resultado.error?.message || "Error desconocido");
+          console.error(error);
 
         }
 
-      } catch (error) {
+        const porcentaje =
+          Math.round(((i + 1) / archivos.length) * 100);
 
-        estado.textContent =
-          "❌ No se pudo conectar con Cloudinary.";
-
-        console.error(error);
+        progress.style.width = porcentaje + "%";
 
       }
+
+
+      if (fallidas === 0) {
+
+        setTimeout(() => {
+
+          document.getElementById("uploadSection").style.display = "none";
+          document.getElementById("successSection").style.display = "block";
+
+        }, 400);
+
+      } else {
+
+        estado.innerHTML =
+          "✅ " + exitosas + " fotografías subidas.<br>" +
+          "⚠️ " + fallidas + " no pudieron cargarse.";
+
+      }
+
     }
+
+
+    function subirMas() {
+
+      input.value = "";
+
+      contador.textContent = "";
+      estado.textContent = "";
+
+      progress.style.width = "0%";
+      progressWrap.style.display = "none";
+
+      document.getElementById("successSection").style.display = "none";
+      document.getElementById("uploadSection").style.display = "block";
+
+    }
+
   </script>
 
 </body>
