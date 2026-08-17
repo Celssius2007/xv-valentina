@@ -2,174 +2,387 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+  >
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
   <title>Comparte tus fotos | XV Valentina</title>
 
   <style>
+
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,.75), transparent 35%),
-        linear-gradient(160deg, #f8e7ee, #ead5df, #d9bac8);
       min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+
+      background:
+        radial-gradient(
+          circle at top,
+          rgba(255,255,255,.8),
+          transparent 35%
+        ),
+        linear-gradient(
+          160deg,
+          #faeaf0,
+          #ecd5df,
+          #dab9c8
+        );
+
+      color: #5d3244;
+
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 24px;
-      color: #5b3142;
+      align-items: center;
+
+      padding: 20px;
     }
+
 
     .card {
       width: 100%;
       max-width: 520px;
-      background: rgba(255,255,255,.88);
-      border-radius: 28px;
-      padding: 34px 24px;
-      box-shadow: 0 20px 60px rgba(90,50,70,.20);
+
+      background: rgba(255,255,255,.93);
+
+      border-radius: 30px;
+
+      padding: 34px 22px;
+
       text-align: center;
-      backdrop-filter: blur(8px);
+
+      box-shadow:
+        0 20px 60px rgba(90,50,70,.20);
     }
 
+
     .small {
-      letter-spacing: 4px;
-      font-size: 13px;
       text-transform: uppercase;
+      letter-spacing: 5px;
+
+      color: #a06b7e;
+
+      font-size: 12px;
+
       margin-bottom: 8px;
-      color: #9b667a;
     }
+
 
     h1 {
       font-family: Georgia, serif;
-      font-size: 34px;
-      margin: 8px 0 12px;
-      color: #7a4058;
+
+      font-size: 38px;
+
+      color: #7d4058;
+
+      margin: 5px 0;
     }
+
 
     .date {
-      font-size: 15px;
+      color: #9a687b;
+
+      margin-top: 8px;
       margin-bottom: 25px;
-      color: #9a6a7d;
+
+      font-size: 14px;
+
+      letter-spacing: 2px;
     }
 
-    p {
+
+    .intro {
       line-height: 1.6;
+
+      font-size: 16px;
+
+      margin-bottom: 25px;
     }
+
 
     .upload-box {
-      margin-top: 24px;
-      border: 2px dashed #c894a8;
-      border-radius: 20px;
-      padding: 26px 18px;
       background: #fff8fb;
+
+      border: 2px dashed #cf9baf;
+
+      border-radius: 22px;
+
+      padding: 25px 16px;
     }
 
-    input[type="file"] {
-      width: 100%;
-      margin-bottom: 18px;
+
+    .upload-icon {
+      font-size: 42px;
+
+      margin-bottom: 8px;
     }
+
+
+    .selector {
+      display: block;
+
+      width: 100%;
+
+      padding: 17px 18px;
+
+      background: #f2dce5;
+
+      color: #71394f;
+
+      border-radius: 50px;
+
+      font-weight: 600;
+
+      font-size: 16px;
+
+      cursor: pointer;
+
+      margin-top: 18px;
+    }
+
+
+    #fotos {
+      position: absolute;
+
+      width: 1px;
+      height: 1px;
+
+      opacity: 0;
+
+      overflow: hidden;
+    }
+
 
     button {
-      width: 100%;
       border: none;
+
+      width: 100%;
+
+      padding: 17px 20px;
+
       border-radius: 50px;
-      padding: 16px 20px;
+
       font-size: 16px;
+
+      font-weight: 600;
+
       cursor: pointer;
-      margin-top: 10px;
-      transition: .2s ease;
+
+      margin-top: 15px;
     }
+
 
     .primary {
-      background: #7b4058;
+      background: #7c4058;
+
       color: white;
-      box-shadow: 0 8px 20px rgba(123,64,88,.25);
+
+      box-shadow:
+        0 8px 24px rgba(124,64,88,.25);
     }
 
-    .primary:hover {
-      transform: translateY(-1px);
+
+    .primary:disabled {
+      opacity: .45;
+
+      cursor: default;
     }
+
 
     .secondary {
-      background: #f2dce5;
-      color: #6e354d;
+      background: #f1dae4;
+
+      color: #70384f;
     }
 
-    #estado {
-      margin-top: 18px;
-      font-weight: bold;
+
+    .contador {
+      font-size: 14px;
+
+      color: #805065;
+
+      margin-top: 15px;
+
+      min-height: 20px;
     }
 
-    .progress-wrap {
+
+    .archivo-actual {
+      margin-top: 15px;
+
+      font-size: 14px;
+
+      min-height: 22px;
+
+      color: #704155;
+    }
+
+
+    .progress-container {
       width: 100%;
-      height: 12px;
-      background: #efdce4;
+
+      height: 14px;
+
+      background: #ecd7e0;
+
       border-radius: 50px;
+
       overflow: hidden;
+
       margin-top: 18px;
+
       display: none;
     }
+
 
     .progress {
       height: 100%;
+
       width: 0%;
-      background: #7b4058;
-      transition: width .25s ease;
+
+      background: #7c4058;
+
+      border-radius: 50px;
+
+      transition: width .3s ease;
     }
 
-    .count {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #87576a;
+
+    .porcentaje {
+      font-size: 13px;
+
+      margin-top: 8px;
+
+      color: #8a6071;
+
+      min-height: 18px;
     }
+
+
+    .resultado {
+      margin-top: 18px;
+
+      line-height: 1.5;
+
+      font-size: 15px;
+    }
+
 
     .success {
       display: none;
+
+      padding: 10px 0;
     }
+
+
+    .success-icon {
+      font-size: 60px;
+    }
+
 
     .success h2 {
       font-family: Georgia, serif;
-      font-size: 30px;
-      color: #7b4058;
-    }
 
-    .heart {
-      font-size: 48px;
+      color: #7c4058;
+
+      font-size: 32px;
+
       margin-bottom: 10px;
     }
 
-    .footer {
-      margin-top: 25px;
-      font-size: 12px;
-      color: #9d7b89;
+
+    .success p {
+      line-height: 1.6;
     }
+
+
+    .nota {
+      font-size: 12px;
+
+      color: #9c7987;
+
+      margin-top: 22px;
+
+      line-height: 1.5;
+    }
+
+
+    .warning {
+      color: #9a5c30;
+    }
+
+
+    .error {
+      color: #a13e4a;
+    }
+
+
+    .ok {
+      color: #52775c;
+    }
+
   </style>
 </head>
 
+
 <body>
 
-  <div class="card">
+  <main class="card">
 
-    <div id="uploadSection">
 
-      <div class="small">Mis XV</div>
+    <!-- PANTALLA DE SUBIDA -->
 
-      <h1>Valentina</h1>
+    <section id="uploadSection">
 
-      <div class="date">19 · 12 · 2026</div>
+      <div class="small">
+        Mis XV
+      </div>
 
-      <p>
+      <h1>
+        Valentina
+      </h1>
+
+      <div class="date">
+        19 · 12 · 2026
+      </div>
+
+
+      <p class="intro">
+
         Ayúdame a guardar cada momento de esta noche.
-        Comparte aquí las fotografías que tomes durante la celebración.
+
+        <br><br>
+
+        Comparte aquí las fotografías que tomes
+        durante la celebración.
+
       </p>
+
 
       <div class="upload-box">
 
-        <p><strong>📸 Selecciona tus fotografías</strong></p>
+        <div class="upload-icon">
+          📸
+        </div>
+
+        <strong>
+          Comparte tus recuerdos
+        </strong>
+
+
+        <!--
+          IMPORTANTE:
+          image/* permite que iPhone incluya
+          HEIC / HEIF / JPEG / PNG
+        -->
 
         <input
           type="file"
@@ -178,176 +391,1139 @@
           multiple
         >
 
-        <button class="primary" onclick="subirFotos()">
+
+        <label
+          for="fotos"
+          class="selector"
+          id="selectorLabel"
+        >
+
+          📷 Elegir fotografías
+
+        </label>
+
+
+        <div
+          id="contador"
+          class="contador"
+        ></div>
+
+
+        <button
+          id="botonSubir"
+          class="primary"
+          onclick="subirFotos()"
+          disabled
+        >
+
           Subir fotografías
+
         </button>
 
-        <div id="contador" class="count"></div>
 
-        <div class="progress-wrap" id="progressWrap">
-          <div class="progress" id="progress"></div>
+        <div
+          id="progressContainer"
+          class="progress-container"
+        >
+
+          <div
+            id="progress"
+            class="progress"
+          ></div>
+
         </div>
 
-        <div id="estado"></div>
+
+        <div
+          id="porcentaje"
+          class="porcentaje"
+        ></div>
+
+
+        <div
+          id="archivoActual"
+          class="archivo-actual"
+        ></div>
+
+
+        <div
+          id="resultado"
+          class="resultado"
+        ></div>
 
       </div>
 
-      <div class="footer">
+
+      <div class="nota">
+
         Puedes seleccionar varias fotografías al mismo tiempo.
+
+        <br>
+
+        En iPhone puedes elegirlas directamente desde tu fototeca.
+
       </div>
 
-    </div>
+    </section>
 
 
-    <div id="successSection" class="success">
 
-      <div class="heart">💗</div>
+    <!-- PANTALLA FINAL -->
 
-      <h2>¡Gracias!</h2>
+    <section
+      id="successSection"
+      class="success"
+    >
+
+      <div class="success-icon">
+        💗
+      </div>
+
+
+      <h2>
+        ¡Gracias!
+      </h2>
+
 
       <p>
-        Tus fotografías se guardaron correctamente.
+
+        Tus fotografías fueron guardadas correctamente.
+
       </p>
+
 
       <p>
-        Gracias por ayudarme a conservar los recuerdos
-        de este día tan especial.
+
+        Gracias por ayudarme a conservar
+        los recuerdos de este día tan especial.
+
       </p>
 
-      <button class="secondary" onclick="subirMas()">
-        📷 Subir más fotografías
+
+      <button
+        class="secondary"
+        onclick="subirMas()"
+      >
+
+        📷 Compartir más fotografías
+
       </button>
 
-    </div>
+    </section>
 
-  </div>
+  </main>
 
 
-  <script>
 
-    const CLOUD_NAME = "wbidq4yy";
-    const UPLOAD_PRESET = "fotos_valentina_15";
+<script>
 
-    const input = document.getElementById("fotos");
-    const contador = document.getElementById("contador");
-    const estado = document.getElementById("estado");
-    const progressWrap = document.getElementById("progressWrap");
-    const progress = document.getElementById("progress");
 
-    input.addEventListener("change", () => {
+/* =======================================================
+   CONFIGURACIÓN CLOUDINARY
+======================================================= */
 
-      const cantidad = input.files.length;
 
-      if (cantidad === 0) {
-        contador.textContent = "";
+const CLOUD_NAME = "wbidq4yy";
+
+const UPLOAD_PRESET = "fotos_valentina_15";
+
+const CLOUDINARY_URL =
+  `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+
+
+
+/* =======================================================
+   CONFIGURACIÓN DE LA GALERÍA
+======================================================= */
+
+
+/*
+   Puedes aumentar este número.
+
+   50 fotografías por tanda es una cantidad
+   razonable para teléfonos.
+*/
+
+const MAX_FOTOS = 50;
+
+
+/*
+   JPEG / PNG / WEBP mayores a esta resolución
+   podrán reducirse antes de subir.
+
+   HEIC / HEIF NO serán procesadas con canvas.
+*/
+
+const MAX_DIMENSION = 2200;
+
+
+/*
+   Calidad JPEG tras optimización.
+*/
+
+const CALIDAD_JPEG = 0.88;
+
+
+
+/* =======================================================
+   ELEMENTOS
+======================================================= */
+
+
+const input =
+  document.getElementById("fotos");
+
+
+const contador =
+  document.getElementById("contador");
+
+
+const botonSubir =
+  document.getElementById("botonSubir");
+
+
+const progressContainer =
+  document.getElementById("progressContainer");
+
+
+const progress =
+  document.getElementById("progress");
+
+
+const porcentaje =
+  document.getElementById("porcentaje");
+
+
+const archivoActual =
+  document.getElementById("archivoActual");
+
+
+const resultado =
+  document.getElementById("resultado");
+
+
+const selectorLabel =
+  document.getElementById("selectorLabel");
+
+
+
+/* =======================================================
+   SELECCIÓN DE FOTOS
+======================================================= */
+
+
+input.addEventListener(
+  "change",
+  function () {
+
+    const cantidad =
+      input.files.length;
+
+
+    resultado.innerHTML = "";
+
+
+    if (cantidad === 0) {
+
+      contador.innerHTML = "";
+
+      botonSubir.disabled = true;
+
+      return;
+
+    }
+
+
+    if (cantidad > MAX_FOTOS) {
+
+      contador.innerHTML =
+        `<span class="warning">
+          Seleccionaste ${cantidad} fotografías.
+          <br>
+          El máximo por tanda es ${MAX_FOTOS}.
+        </span>`;
+
+      botonSubir.disabled = true;
+
+      return;
+
+    }
+
+
+    contador.innerHTML =
+      cantidad === 1
+
+        ? "✅ 1 fotografía seleccionada"
+
+        : `✅ ${cantidad} fotografías seleccionadas`;
+
+
+    botonSubir.disabled = false;
+
+  }
+);
+
+
+
+/* =======================================================
+   IDENTIFICAR HEIC / HEIF
+======================================================= */
+
+
+function esHEIC(archivo) {
+
+  const nombre =
+    archivo.name.toLowerCase();
+
+
+  const tipo =
+    (archivo.type || "").toLowerCase();
+
+
+  return (
+
+    nombre.endsWith(".heic") ||
+
+    nombre.endsWith(".heif") ||
+
+    tipo.includes("heic") ||
+
+    tipo.includes("heif")
+
+  );
+
+}
+
+
+
+/* =======================================================
+   DECIDIR SI CONVIENE COMPRIMIR
+======================================================= */
+
+
+function puedeOptimizarse(archivo) {
+
+
+  /*
+     No procesamos HEIC/HEIF dentro de Safari.
+
+     Se mandan directamente a Cloudinary.
+  */
+
+  if (esHEIC(archivo)) {
+
+    return false;
+
+  }
+
+
+  const tipo =
+    (archivo.type || "").toLowerCase();
+
+
+  return (
+
+    tipo === "image/jpeg" ||
+
+    tipo === "image/jpg" ||
+
+    tipo === "image/png" ||
+
+    tipo === "image/webp"
+
+  );
+
+}
+
+
+
+/* =======================================================
+   OPTIMIZAR JPEG / PNG / WEBP
+======================================================= */
+
+
+function optimizarImagen(archivo) {
+
+
+  return new Promise(
+
+    (resolve) => {
+
+
+      if (!puedeOptimizarse(archivo)) {
+
+        resolve(archivo);
+
         return;
+
       }
 
-      contador.textContent =
-        cantidad === 1
-          ? "1 fotografía seleccionada"
-          : cantidad + " fotografías seleccionadas";
 
-    });
+      /*
+         Si el archivo ya es pequeño,
+         tampoco necesitamos procesarlo.
+      */
 
+      if (archivo.size < 2 * 1024 * 1024) {
 
-    async function subirFotos() {
+        resolve(archivo);
 
-      const archivos = [...input.files];
-
-      if (!archivos.length) {
-        estado.textContent = "Selecciona al menos una fotografía.";
         return;
+
       }
 
-      estado.textContent = "";
 
-      progressWrap.style.display = "block";
-      progress.style.width = "0%";
+      const url =
+        URL.createObjectURL(archivo);
 
-      let exitosas = 0;
-      let fallidas = 0;
 
-      for (let i = 0; i < archivos.length; i++) {
+      const img =
+        new Image();
 
-        const archivo = archivos[i];
 
-        estado.textContent =
-          "Subiendo " + (i + 1) + " de " + archivos.length + "...";
+      img.onload = function () {
+
 
         try {
 
-          const formData = new FormData();
 
-          formData.append("file", archivo);
-          formData.append("upload_preset", UPLOAD_PRESET);
+          let ancho =
+            img.naturalWidth || img.width;
 
-          const respuesta = await fetch(
-            `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-            {
-              method: "POST",
-              body: formData
-            }
-          );
 
-          if (respuesta.ok) {
-            exitosas++;
-          } else {
-            fallidas++;
+          let alto =
+            img.naturalHeight || img.height;
+
+
+
+          /*
+             Si no necesita reducción,
+             usamos el original.
+          */
+
+          if (
+            ancho <= MAX_DIMENSION &&
+            alto <= MAX_DIMENSION
+          ) {
+
+            URL.revokeObjectURL(url);
+
+            resolve(archivo);
+
+            return;
+
           }
 
-        } catch (error) {
 
-          fallidas++;
 
-          console.error(error);
+          const escala =
+            Math.min(
+
+              MAX_DIMENSION / ancho,
+
+              MAX_DIMENSION / alto
+
+            );
+
+
+          const nuevoAncho =
+            Math.round(ancho * escala);
+
+
+          const nuevoAlto =
+            Math.round(alto * escala);
+
+
+
+          const canvas =
+            document.createElement("canvas");
+
+
+          canvas.width =
+            nuevoAncho;
+
+
+          canvas.height =
+            nuevoAlto;
+
+
+
+          const ctx =
+            canvas.getContext("2d");
+
+
+          ctx.drawImage(
+
+            img,
+
+            0,
+
+            0,
+
+            nuevoAncho,
+
+            nuevoAlto
+
+          );
+
+
+
+          canvas.toBlob(
+
+            function (blob) {
+
+
+              URL.revokeObjectURL(url);
+
+
+              /*
+                 Si Safari no pudo generar el blob,
+                 usamos el original.
+              */
+
+              if (!blob) {
+
+                resolve(archivo);
+
+                return;
+
+              }
+
+
+
+              const nombreSinExtension =
+                archivo.name.replace(
+                  /\.[^/.]+$/,
+                  ""
+                );
+
+
+              const archivoNuevo =
+                new File(
+
+                  [blob],
+
+                  nombreSinExtension + ".jpg",
+
+                  {
+
+                    type: "image/jpeg",
+
+                    lastModified: Date.now()
+
+                  }
+
+                );
+
+
+              resolve(archivoNuevo);
+
+            },
+
+
+            "image/jpeg",
+
+
+            CALIDAD_JPEG
+
+          );
+
 
         }
 
-        const porcentaje =
-          Math.round(((i + 1) / archivos.length) * 100);
 
-        progress.style.width = porcentaje + "%";
+        catch (error) {
+
+
+          console.log(
+            "No fue posible optimizar:",
+            error
+          );
+
+
+          URL.revokeObjectURL(url);
+
+
+          resolve(archivo);
+
+        }
+
+      };
+
+
+
+      img.onerror = function () {
+
+
+        /*
+           Muy importante para iPhone.
+
+           Si Safari no puede interpretar
+           la imagen, simplemente subimos
+           el archivo original.
+        */
+
+
+        URL.revokeObjectURL(url);
+
+
+        resolve(archivo);
+
+      };
+
+
+      img.src = url;
+
+    }
+
+  );
+
+}
+
+
+
+/* =======================================================
+   SUBIR UNA FOTO A CLOUDINARY
+======================================================= */
+
+
+async function subirArchivo(archivo) {
+
+
+  const formData =
+    new FormData();
+
+
+  formData.append(
+    "file",
+    archivo
+  );
+
+
+  formData.append(
+    "upload_preset",
+    UPLOAD_PRESET
+  );
+
+
+
+  const respuesta =
+    await fetch(
+
+      CLOUDINARY_URL,
+
+      {
+
+        method: "POST",
+
+        body: formData
 
       }
 
+    );
 
-      if (fallidas === 0) {
 
-        setTimeout(() => {
 
-          document.getElementById("uploadSection").style.display = "none";
-          document.getElementById("successSection").style.display = "block";
+  const datos =
+    await respuesta.json();
 
-        }, 400);
 
-      } else {
 
-        estado.innerHTML =
-          "✅ " + exitosas + " fotografías subidas.<br>" +
-          "⚠️ " + fallidas + " no pudieron cargarse.";
+  if (!respuesta.ok) {
+
+
+    throw new Error(
+
+      datos?.error?.message ||
+
+      "Cloudinary rechazó la fotografía"
+
+    );
+
+  }
+
+
+
+  return datos;
+
+}
+
+
+
+/* =======================================================
+   REINTENTOS
+======================================================= */
+
+
+async function subirConReintentos(
+  archivo,
+  maxIntentos = 3
+) {
+
+
+  let ultimoError;
+
+
+  for (
+    let intento = 1;
+    intento <= maxIntentos;
+    intento++
+  ) {
+
+
+    try {
+
+
+      return await subirArchivo(
+        archivo
+      );
+
+
+    }
+
+
+    catch (error) {
+
+
+      ultimoError = error;
+
+
+      console.log(
+        `Intento ${intento} falló`,
+        error
+      );
+
+
+      if (intento < maxIntentos) {
+
+
+        /*
+           Esperamos antes de volver a intentar.
+        */
+
+
+        await esperar(
+          intento * 1500
+        );
 
       }
 
     }
 
+  }
 
-    function subirMas() {
 
-      input.value = "";
+  throw ultimoError;
 
-      contador.textContent = "";
-      estado.textContent = "";
+}
 
-      progress.style.width = "0%";
-      progressWrap.style.display = "none";
 
-      document.getElementById("successSection").style.display = "none";
-      document.getElementById("uploadSection").style.display = "block";
+
+/* =======================================================
+   ESPERA
+======================================================= */
+
+
+function esperar(ms) {
+
+  return new Promise(
+
+    resolve =>
+      setTimeout(resolve, ms)
+
+  );
+
+}
+
+
+
+/* =======================================================
+   SUBIR TODAS LAS FOTOS
+======================================================= */
+
+
+async function subirFotos() {
+
+
+  /*
+     Creamos la lista.
+
+     NO convertimos todas las fotos simultáneamente.
+
+     Eso es fundamental para iPhone.
+  */
+
+
+  const archivos =
+    Array.from(
+      input.files
+    );
+
+
+
+  if (archivos.length === 0) {
+
+
+    resultado.innerHTML =
+      `<span class="warning">
+        Selecciona fotografías primero.
+      </span>`;
+
+
+    return;
+
+  }
+
+
+
+  if (archivos.length > MAX_FOTOS) {
+
+
+    resultado.innerHTML =
+      `<span class="warning">
+        Máximo ${MAX_FOTOS} fotografías por tanda.
+      </span>`;
+
+
+    return;
+
+  }
+
+
+
+  /*
+     Evitamos que el usuario vuelva a pulsar
+     mientras está subiendo.
+  */
+
+
+  botonSubir.disabled = true;
+
+
+  input.disabled = true;
+
+
+  selectorLabel.style.opacity = ".45";
+
+
+  selectorLabel.style.pointerEvents = "none";
+
+
+
+  progressContainer.style.display =
+    "block";
+
+
+  progress.style.width =
+    "0%";
+
+
+  porcentaje.textContent =
+    "0%";
+
+
+  resultado.innerHTML =
+    "";
+
+
+
+  let exitosas = 0;
+
+
+  let fallidas = 0;
+
+
+  const nombresFallidos = [];
+
+
+
+  /*
+     SECUENCIAL.
+
+     Una fotografía termina completamente
+     antes de procesar la siguiente.
+
+     Esto reduce muchísimo el uso de memoria
+     en iPhone / Safari.
+  */
+
+
+  for (
+    let i = 0;
+    i < archivos.length;
+    i++
+  ) {
+
+
+    const original =
+      archivos[i];
+
+
+
+    archivoActual.innerHTML =
+
+      `Preparando fotografía
+       <strong>${i + 1}</strong>
+       de
+       <strong>${archivos.length}</strong>...`;
+
+
+
+    try {
+
+
+      /*
+         Optimización solamente cuando
+         el formato es seguro.
+      */
+
+
+      const preparada =
+        await optimizarImagen(
+          original
+        );
+
+
+
+      archivoActual.innerHTML =
+
+        `📤 Subiendo fotografía
+         <strong>${i + 1}</strong>
+         de
+         <strong>${archivos.length}</strong>...`;
+
+
+
+      await subirConReintentos(
+        preparada
+      );
+
+
+
+      exitosas++;
+
 
     }
 
-  </script>
+
+    catch (error) {
+
+
+      console.error(
+        "Error definitivo:",
+        original.name,
+        error
+      );
+
+
+      fallidas++;
+
+
+      nombresFallidos.push(
+        original.name
+      );
+
+    }
+
+
+
+    /*
+       Actualizamos la barra solamente
+       cuando esa fotografía terminó.
+    */
+
+
+    const avance =
+      Math.round(
+
+        ((i + 1) / archivos.length)
+        * 100
+
+      );
+
+
+    progress.style.width =
+      avance + "%";
+
+
+    porcentaje.textContent =
+      avance + "%";
+
+
+    /*
+       Pequeña pausa.
+
+       Ayuda a Safari a liberar memoria
+       antes de la siguiente foto.
+    */
+
+
+    await esperar(250);
+
+  }
+
+
+
+  archivoActual.innerHTML =
+    "";
+
+
+
+  /*
+     TODO CORRECTO
+  */
+
+
+  if (fallidas === 0) {
+
+
+    porcentaje.textContent =
+      "100%";
+
+
+    resultado.innerHTML =
+
+      `<span class="ok">
+        ✅ ${exitosas}
+        ${exitosas === 1
+          ? "fotografía guardada"
+          : "fotografías guardadas"}
+        correctamente.
+      </span>`;
+
+
+
+    await esperar(900);
+
+
+
+    document
+      .getElementById("uploadSection")
+      .style.display = "none";
+
+
+    document
+      .getElementById("successSection")
+      .style.display = "block";
+
+
+    return;
+
+  }
+
+
+
+  /*
+     ALGUNAS FALLARON
+  */
+
+
+  resultado.innerHTML =
+
+    `<span class="ok">
+      ✅ ${exitosas} fotografías guardadas.
+    </span>
+
+    <br>
+
+    <span class="error">
+      ⚠️ ${fallidas} no pudieron cargarse.
+    </span>
+
+    <br><br>
+
+    Puedes volver a seleccionar únicamente
+    las fotografías que faltaron.`;
+
+
+
+  input.disabled = false;
+
+
+  selectorLabel.style.opacity = "1";
+
+
+  selectorLabel.style.pointerEvents = "auto";
+
+
+  botonSubir.disabled = false;
+
+}
+
+
+
+/* =======================================================
+   NUEVA TANDA
+======================================================= */
+
+
+function subirMas() {
+
+
+  input.value =
+    "";
+
+
+  input.disabled =
+    false;
+
+
+  botonSubir.disabled =
+    true;
+
+
+  selectorLabel.style.opacity =
+    "1";
+
+
+  selectorLabel.style.pointerEvents =
+    "auto";
+
+
+  contador.innerHTML =
+    "";
+
+
+  resultado.innerHTML =
+    "";
+
+
+  archivoActual.innerHTML =
+    "";
+
+
+  porcentaje.innerHTML =
+    "";
+
+
+  progress.style.width =
+    "0%";
+
+
+  progressContainer.style.display =
+    "none";
+
+
+  document
+    .getElementById("successSection")
+    .style.display = "none";
+
+
+  document
+    .getElementById("uploadSection")
+    .style.display = "block";
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+</script>
+
 
 </body>
 </html>
