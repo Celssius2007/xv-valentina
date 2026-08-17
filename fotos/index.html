@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sube tus fotos | XV Valentina</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; text-align:center; padding:40px;">
+
+  <h1>📸 Comparte tus fotos</h1>
+
+  <p>
+    Selecciona una fotografía para comprobar que se guarda correctamente.
+  </p>
+
+  <input
+    type="file"
+    id="foto"
+    accept="image/*"
+  >
+
+  <br><br>
+
+  <button onclick="subirFoto()">
+    Subir fotografía
+  </button>
+
+  <p id="estado"></p>
+
+  <script>
+    async function subirFoto() {
+
+      const input = document.getElementById("foto");
+      const estado = document.getElementById("estado");
+
+      if (!input.files.length) {
+        estado.textContent = "Selecciona una fotografía primero.";
+        return;
+      }
+
+      const archivo = input.files[0];
+
+      const formData = new FormData();
+
+      formData.append("file", archivo);
+      formData.append("upload_preset", "fotos_valentina_15");
+
+      estado.textContent = "Subiendo fotografía...";
+
+      try {
+
+        const respuesta = await fetch(
+          "https://api.cloudinary.com/v1_1/wbidq4yy/image/upload",
+          {
+            method: "POST",
+            body: formData
+          }
+        );
+
+        const resultado = await respuesta.json();
+
+        if (respuesta.ok) {
+
+          estado.innerHTML =
+            "✅ Fotografía subida correctamente.<br><br>" +
+            "Ya puedes revisar Cloudinary.";
+
+          console.log(resultado);
+
+        } else {
+
+          estado.textContent =
+            "❌ Error al subir la fotografía: " +
+            (resultado.error?.message || "Error desconocido");
+
+        }
+
+      } catch (error) {
+
+        estado.textContent =
+          "❌ No se pudo conectar con Cloudinary.";
+
+        console.error(error);
+
+      }
+    }
+  </script>
+
+</body>
+</html>
