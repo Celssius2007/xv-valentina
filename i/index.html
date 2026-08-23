@@ -1,0 +1,32 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>XV Valentina</title><meta name="robots" content="noindex"></head><body style="margin:0;background:#070508"><script>
+const guests={
+ka:['Karen Lares',4,'karen-lares'],
+se:['Selene Lares',2,'selene-lares'],
+kl:['Karla Lares',3,'karla-lares'],
+gu:['Gustavo Lares',2,'gustavo-lares'],
+va:['Valeria Lares',3,'valeria-lares'],
+sc:['Scarlett Bonilla',0,'scarlett-bonilla'],
+ca:['Catalina Leal',0,'catalina-leal'],
+br:['Britany Lopez',0,'britany-lopez'],
+al:['Alejandra Rodriguez',0,'alejandra-rodriguez'],
+ur:['Uriel Mercado',0,'uriel-mercado'],
+fm:['Familia Meza',5,'familia-meza'],
+lo:['Lore Martinez',0,'lore-martinez'],
+ma:['Mary Martinez',0,'mary-martinez'],
+am:['Ale Martinez',0,'ale-martinez'],
+kb:['Karla Barrientos',1,'karla-barrientos'],
+db:['Dayana Barron',4,'dayana-barron'],
+ah:['Andrea Hernandez',2,'andrea-hernandez'],
+ms:['Marlon Salas',1,'marlon-salas'],
+hd:['Alondra Hdz',2,'alondra-hdz'],
+js:['Jesus Simenta',1,'jesus-simenta'],
+lv:['Lore Vazquez',0,'lore-vazquez'],
+kf:['Kory Figueroa',0,'kory-figueroa'],
+dg:['Delia Gurrola',0,'delia-gurrola'],
+le:['Lucila Escobedo',0,'lucila-escobedo']
+};
+const code=(location.search.slice(1).split('&')[0]||'').toLowerCase();
+const g=guests[code];
+if(g){location.replace('../invite.html?name='+encodeURIComponent(g[0])+'&max='+g[1]+'&id='+encodeURIComponent(g[2]));}
+else{document.body.innerHTML='<div style="min-height:100vh;display:grid;place-items:center;color:#d5ad72;font-family:Georgia,serif;text-align:center"><div><h1>XV VALENTINA</h1><p>Invitación no encontrada.</p></div></div>'}
+</script></body></html>
