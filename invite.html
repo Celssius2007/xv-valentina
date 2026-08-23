@@ -38,7 +38,7 @@
 <audio id="audio" preload="auto" loop src="./a-thousand-years.mp3"></audio>
 <button id="top" class="top hidden" type="button" aria-label="Volver arriba">↑</button>
 <script>
-const ENDPOINT='https://script.google.com/macros/s/AKfycbz614kSf4KLp0wleBcF9fVL_TMjCWpiPYgFZZdonGSLnIU7U5dJmpFR6RYkzTc9KtOe/exec';
+const ENDPOINT='https://script.google.com/macros/s/AKfycbwSGMHnGVop1VSEv5VR4BzowXE85E9p4KrGFVtIiRixKaUMaVmSvmntLshMbZkm8aZy0g/exec';
 const p=new URLSearchParams(location.search);const name=(p.get('name')||'Invitado').trim();const max=Math.max(0,Math.min(9,parseInt(p.get('max')||'0',10)||0));const gid=(p.get('id')||name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'invitado');const $=id=>document.getElementById(id);let attendance=null,extra=0;
 $('guestName').textContent=name;
 for(let n=0;n<=max;n++){const b=document.createElement('button');b.type='button';b.className='num';b.textContent=n;if(n===0)b.classList.add('on');b.onclick=()=>{extra=n;[...$('nums').children].forEach(x=>x.classList.toggle('on',x===b));};$('nums').appendChild(b)}if(max===0)$('companions').classList.add('hidden');
